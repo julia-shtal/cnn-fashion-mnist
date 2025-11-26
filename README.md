@@ -96,7 +96,7 @@ The project evaluates 4 training-testing combinations:
 ## 📦 Dataset
 
 ### Fashion MNIST
-- **Size**: 60,000 training + 10,000 test images
+- **Size**: ~40,000 training + 10,000 test images
 - **Format**: 28×28 grayscale PNG images
 - **Classes**: 10 categories (T-shirt, Trouser, Pullover, Dress, Coat, Sandal, Shirt, Sneaker, Bag, Ankle boot)
 - **File Format**: Compressed NumPy arrays (`.npz`)
@@ -106,8 +106,8 @@ The project evaluates 4 training-testing combinations:
 **Option 1: From GitHub Releases (Recommended)**
 ```bash
 # Download preprocessed datasets
-wget https://github.com/YOUR-USERNAME/cnn-fashion-mnist/releases/download/v1.0/train_data.npz
-wget https://github.com/YOUR-USERNAME/cnn-fashion-mnist/releases/download/v1.0/test_data.npz
+wget https://github.com/julia-shtal/cnn-fashion-mnist/releases/download/v1.0/train_data.npz
+wget https://github.com/julia-shtal/cnn-fashion-mnist/releases/download/v1.0/test_data.npz
 
 # Move to data folder
 mv train_data.npz test_data.npz data/
