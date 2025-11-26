@@ -457,7 +457,7 @@ def main():
         criterion, optimizer1, num_epochs, device, num_classes,
         results_dir, timestamp
     )
-    results["Scenario 1 (Uncorrected→Clean)"] = error_rate1
+    results["Scenario 1 (Uncorrected->Clean)"] = error_rate1
 
     # Scenario 2: Train on uncorrected, test on uncorrected
     model2 = LeNet(num_classes).to(device)
@@ -468,7 +468,7 @@ def main():
         criterion, optimizer2, num_epochs, device, num_classes,
         results_dir, timestamp
     )
-    results["Scenario 2 (Uncorrected→Uncorrected)"] = error_rate2
+    results["Scenario 2 (Uncorrected->Uncorrected)"] = error_rate2
 
     # Scenario 3: Train on corrected, test on clean
     model3 = LeNet(num_classes).to(device)
@@ -480,7 +480,7 @@ def main():
         criterion_weighted, optimizer3, num_epochs, device, num_classes,
         results_dir, timestamp
     )
-    results["Scenario 3 (Corrected→Clean)"] = error_rate3
+    results["Scenario 3 (Corrected->Clean)"] = error_rate3
 
     # Scenario 4: Train on corrected, test on corrected
     model4 = LeNet(num_classes).to(device)
@@ -491,7 +491,7 @@ def main():
         criterion_weighted, optimizer4, num_epochs, device, num_classes,
         results_dir, timestamp
     )
-    results["Scenario 4 (Corrected→Corrected)"] = error_rate4
+    results["Scenario 4 (Corrected->Corrected)"] = error_rate4
 
     # Print summary of all results
     print("\n" + "="*70)
