@@ -133,7 +133,7 @@ python src/split_data.py data/all_data.npz --ratio 0.8
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/YOUR-USERNAME/cnn-fashion-mnist.git
+git clone https://github.com/julia-shtal/cnn-fashion-mnist.git
 cd cnn-fashion-mnist
 ```
 
@@ -158,8 +158,8 @@ pip install -r requirements.txt
 # See data/README.md for detailed instructions
 # Quick download:
 cd data
-wget https://github.com/YOUR-USERNAME/cnn-fashion-mnist/releases/download/v1.0/train_data.npz
-wget https://github.com/YOUR-USERNAME/cnn-fashion-mnist/releases/download/v1.0/test_data.npz
+wget https://github.com/julia-shtal/cnn-fashion-mnist/releases/download/v1.0/train_data.npz
+wget https://github.com/julia-shtal/cnn-fashion-mnist/releases/download/v1.0/test_data.npz
 cd ..
 ```
 
@@ -355,7 +355,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Julia Shtal**
 - GitHub: [@julia-shtal](https://github.com/julia-shtal)
-- LinkedIn: [Your LinkedIn Profile]
+- LinkedIn: [https://www.linkedin.com/in/iuliia-shtal]
 
 ---
 
