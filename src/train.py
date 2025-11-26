@@ -373,7 +373,7 @@ def save_summary_results(results_dict, results_dir, timestamp):
     summary_filename = f"experiment_summary_{timestamp}.txt"
     summary_path = os.path.join(results_dir, summary_filename)
 
-    with open(summary_path, 'w') as f:
+    with open(summary_path, 'w', encoding='utf-8') as f:
         f.write("=" * 70 + "\n")
         f.write("CNN Fashion MNIST Experiment Results\n")
         f.write("=" * 70 + "\n")

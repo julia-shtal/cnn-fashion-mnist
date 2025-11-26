@@ -13,6 +13,7 @@ models/*
 results/*
 !results/.gitkeep
 !results/.gitignore
+!results/README.md
 
 # Python
 __pycache__/
