@@ -5,6 +5,8 @@ import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader, random_split
 import matplotlib.pyplot as plt
 import argparse
+import os
+from datetime import datetime
 
 
 class ImageDataset(Dataset):
@@ -145,12 +147,14 @@ def custom_confusion_matrix(true_labels, pred_labels, num_classes):
     return conf_matrix
 
 
-def plot_confusion_matrix(conf_matrix):
+def plot_confusion_matrix(conf_matrix, save_path=None, title='Confusion Matrix'):
     """
-    Visualize confusion matrix with matplotlib.
+    Visualize confusion matrix with matplotlib and save to file.
 
     Args:
         conf_matrix: Confusion matrix to plot
+        save_path: Path to save the figure (if None, only displays)
+        title: Title for the plot
     """
     plt.figure(figsize=(10, 10))
     plt.imshow(conf_matrix, interpolation='nearest', cmap=plt.cm.Blues)
@@ -164,11 +168,17 @@ def plot_confusion_matrix(conf_matrix):
                     ha="center", va="center",
                     color="white" if conf_matrix[i, j] > thresh else "black")
 
-    plt.title('Confusion Matrix')
+    plt.title(title)
     plt.ylabel('True Label')
     plt.xlabel('Predicted Label')
     plt.tight_layout()
-    plt.show()
+
+    # Save figure if path provided
+    if save_path:
+        plt.savefig(save_path, dpi=150, bbox_inches='tight')
+        print(f"  Confusion matrix saved: {save_path}")
+
+    plt.close()  # Close to avoid memory issues with multiple plots
 
 
 def train_model(model, train_loader, criterion, optimizer, num_epochs, device):
@@ -200,7 +210,7 @@ def train_model(model, train_loader, criterion, optimizer, num_epochs, device):
 
         # Progress logging every 2 epochs
         if (epoch + 1) % 2 == 0:
-            print(f'Epoch {epoch+1}/{num_epochs} completed')
+            print(f'  Epoch {epoch+1}/{num_epochs} completed')
 
     return model
 
@@ -305,7 +315,8 @@ def create_dataloaders(X_train, T_train, X_train_corrected, T_train_corrected,
 
 
 def run_training_scenario(scenario_num, description, model, train_loader, test_loader,
-                         criterion, optimizer, num_epochs, device, num_classes):
+                         criterion, optimizer, num_epochs, device, num_classes,
+                         results_dir, timestamp):
     """
     Execute a single training and evaluation scenario.
 
@@ -320,6 +331,8 @@ def run_training_scenario(scenario_num, description, model, train_loader, test_l
         num_epochs: Number of training epochs
         device: Device to use
         num_classes: Number of classes
+        results_dir: Directory to save results
+        timestamp: Timestamp string for file naming
 
     Returns:
         error_rate: Test error rate
@@ -328,9 +341,63 @@ def run_training_scenario(scenario_num, description, model, train_loader, test_l
     print(f"\nScenario {scenario_num}: {description}")
     model = train_model(model, train_loader, criterion, optimizer, num_epochs, device)
     error_rate, conf_matrix = evaluate_model(model, test_loader, device, num_classes)
-    print(f"Test error: {error_rate:.4f}")
-    plot_confusion_matrix(conf_matrix)
+    print(f"  Test error: {error_rate:.4f}")
+
+    # Create meaningful filename for confusion matrix
+    # Format: confusion_matrix_scenario1_uncorrected-to-clean_20251126_143025.png
+    scenario_name = description.lower()\
+        .replace("training on ", "")\
+        .replace("testing on ", "to-")\
+        .replace("data, ", "")\
+        .replace(" ", "-")\
+        .replace(",", "")
+
+    filename = f"confusion_matrix_scenario{scenario_num}_{scenario_name}_{timestamp}.png"
+    save_path = os.path.join(results_dir, filename)
+
+    plot_title = f'Confusion Matrix - Scenario {scenario_num}\n{description}'
+    plot_confusion_matrix(conf_matrix, save_path=save_path, title=plot_title)
+
     return error_rate, conf_matrix
+
+
+def save_summary_results(results_dict, results_dir, timestamp):
+    """
+    Save experiment summary to a text file.
+
+    Args:
+        results_dict: Dictionary containing scenario results
+        results_dir: Directory to save results
+        timestamp: Timestamp string for file naming
+    """
+    summary_filename = f"experiment_summary_{timestamp}.txt"
+    summary_path = os.path.join(results_dir, summary_filename)
+
+    with open(summary_path, 'w') as f:
+        f.write("=" * 70 + "\n")
+        f.write("CNN Fashion MNIST Experiment Results\n")
+        f.write("=" * 70 + "\n")
+        f.write(f"Timestamp: {timestamp}\n")
+        f.write("=" * 70 + "\n\n")
+
+        f.write("Summary of Results:\n")
+        f.write("-" * 70 + "\n")
+        for scenario, error_rate in results_dict.items():
+            f.write(f"{scenario}: {error_rate:.4f}\n")
+
+        f.write("\n" + "=" * 70 + "\n")
+        f.write("Scenario Descriptions:\n")
+        f.write("=" * 70 + "\n")
+        f.write("Scenario 1: Baseline - Train on uncorrected, test on clean data\n")
+        f.write("            (Evaluates model on unseen clean distribution)\n\n")
+        f.write("Scenario 2: Imbalanced - Train on uncorrected, test on uncorrected\n")
+        f.write("            (Performance with class imbalance)\n\n")
+        f.write("Scenario 3: Balanced - Train on corrected, test on clean data\n")
+        f.write("            (Impact of balancing on generalization)\n\n")
+        f.write("Scenario 4: Best Case - Train on corrected, test on corrected\n")
+        f.write("            (Optimal scenario with balanced data)\n")
+
+    print(f"\nExperiment summary saved: {summary_path}")
 
 
 def main():
@@ -338,7 +405,15 @@ def main():
     parser = argparse.ArgumentParser(description='CNN Training and Testing Script')
     parser.add_argument('train_data', type=str, help='Path to training data NPZ file')
     parser.add_argument('clean_test_data', type=str, help='Path to clean test data NPZ file')
+    parser.add_argument('--results-dir', type=str, default='results',
+                       help='Directory to save results (default: results)')
     args = parser.parse_args()
+
+    # Create results directory with timestamp subdirectory
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    results_dir = os.path.join(args.results_dir, timestamp)
+    os.makedirs(results_dir, exist_ok=True)
+    print(f"Results will be saved to: {results_dir}")
 
     # Load training data
     train_data = np.load(args.train_data)
@@ -346,7 +421,9 @@ def main():
 
     # Load clean test data
     clean_test_data = np.load(args.clean_test_data)
-    X_clean_test, T_clean_test, class_weights_clean_data = correct_data(clean_test_data['X'], clean_test_data['T'])
+    X_clean_test, T_clean_test, class_weights_clean_data = correct_data(
+        clean_test_data['X'], clean_test_data['T']
+    )
 
     # Correct training data (normalize and balance)
     X_train_corrected, T_train_corrected, class_weights = correct_data(X_train.copy(), T_train)
@@ -361,10 +438,14 @@ def main():
 
     print(f"Training data shape: {X_train.shape}, Labels shape: {T_train.shape}")
     print(f"Unique labels: {np.unique(T_train)}")
+    print(f"Device: {device}")
 
     # Create all required DataLoaders
     loaders = create_dataloaders(X_train, T_train, X_train_corrected, T_train_corrected,
                                  X_clean_test, T_clean_test, batch_size, test_percentage)
+
+    # Dictionary to store all results
+    results = {}
 
     # Scenario 1: Train on uncorrected, test on clean
     model1 = LeNet(num_classes).to(device)
@@ -373,8 +454,10 @@ def main():
     error_rate1, conf_matrix1 = run_training_scenario(
         1, "Training on uncorrected data, testing on clean data",
         model1, loaders['uncorrected_train'], loaders['clean_test'],
-        criterion, optimizer1, num_epochs, device, num_classes
+        criterion, optimizer1, num_epochs, device, num_classes,
+        results_dir, timestamp
     )
+    results["Scenario 1 (Uncorrected→Clean)"] = error_rate1
 
     # Scenario 2: Train on uncorrected, test on uncorrected
     model2 = LeNet(num_classes).to(device)
@@ -382,8 +465,10 @@ def main():
     error_rate2, conf_matrix2 = run_training_scenario(
         2, "Training on uncorrected data, testing on uncorrected data",
         model2, loaders['uncorrected_train'], loaders['uncorrected_test'],
-        criterion, optimizer2, num_epochs, device, num_classes
+        criterion, optimizer2, num_epochs, device, num_classes,
+        results_dir, timestamp
     )
+    results["Scenario 2 (Uncorrected→Uncorrected)"] = error_rate2
 
     # Scenario 3: Train on corrected, test on clean
     model3 = LeNet(num_classes).to(device)
@@ -392,8 +477,10 @@ def main():
     error_rate3, conf_matrix3 = run_training_scenario(
         3, "Training on corrected data, testing on clean data",
         model3, loaders['corrected_train'], loaders['clean_test'],
-        criterion_weighted, optimizer3, num_epochs, device, num_classes
+        criterion_weighted, optimizer3, num_epochs, device, num_classes,
+        results_dir, timestamp
     )
+    results["Scenario 3 (Corrected→Clean)"] = error_rate3
 
     # Scenario 4: Train on corrected, test on corrected
     model4 = LeNet(num_classes).to(device)
@@ -401,15 +488,23 @@ def main():
     error_rate4, conf_matrix4 = run_training_scenario(
         4, "Training on corrected data, testing on corrected test data",
         model4, loaders['corrected_train'], loaders['corrected_test'],
-        criterion_weighted, optimizer4, num_epochs, device, num_classes
+        criterion_weighted, optimizer4, num_epochs, device, num_classes,
+        results_dir, timestamp
     )
+    results["Scenario 4 (Corrected→Corrected)"] = error_rate4
 
     # Print summary of all results
-    print("\nSummary of Results:")
-    print(f"Scenario 1 (Uncorrected->Clean): {error_rate1:.4f}")
-    print(f"Scenario 2 (Uncorrected->Uncorrected): {error_rate2:.4f}")
-    print(f"Scenario 3 (Corrected->Clean): {error_rate3:.4f}")
-    print(f"Scenario 4 (Corrected->Corrected): {error_rate4:.4f}")
+    print("\n" + "="*70)
+    print("Summary of Results:")
+    print("="*70)
+    for scenario, error_rate in results.items():
+        print(f"{scenario}: {error_rate:.4f}")
+    print("="*70)
+
+    # Save summary to file
+    save_summary_results(results, results_dir, timestamp)
+
+    print(f"\nAll results saved to: {results_dir}")
 
 
 if __name__ == "__main__":
