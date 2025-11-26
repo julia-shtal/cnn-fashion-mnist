@@ -111,7 +111,6 @@ python src/split_data.py data/all_data.npz --ratio 0.8
 # - data/test_data.npz (20% of data)
 ```
 
-
 **Image Requirements:**
 - Format: PNG
 - Naming convention: `<label>-<id>.png` (e.g., `0-1.png`, `5-42.png`)
