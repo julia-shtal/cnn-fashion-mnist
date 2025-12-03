@@ -6,7 +6,7 @@
 
 A deep learning project implementing **LeNet-5 CNN architecture** for Fashion MNIST image classification, with comprehensive experiments analyzing the impact of class balancing and data preprocessing on model performance.
 
-## 🎯 Project Overview
+## Project Overview
 
 This project explores how **data preprocessing and class balancing** affect CNN performance in image classification tasks. Using the Fashion MNIST dataset (28×28 grayscale images of clothing items), we train and evaluate LeNet-5 models under four different scenarios to understand:
 
@@ -16,15 +16,15 @@ This project explores how **data preprocessing and class balancing** affect CNN 
 
 ### Key Features
 
-- ✨ **LeNet-5 Implementation**: Classic CNN architecture optimized for grayscale image classification
-- 📊 **Data Balancing**: Automated oversampling to handle class imbalance
-- 🔬 **Multi-Scenario Training**: 4 experimental setups comparing corrected vs uncorrected data
-- 📈 **Comprehensive Evaluation**: Confusion matrices, error rates, and performance metrics
-- 🛠️ **Modular Codebase**: Clean, refactored Python scripts with clear separation of concerns
+-  **LeNet-5 Implementation**: Classic CNN architecture optimized for grayscale image classification
+-  **Data Balancing**: Automated oversampling to handle class imbalance
+-  **Multi-Scenario Training**: 4 experimental setups comparing corrected vs uncorrected data
+-  **Comprehensive Evaluation**: Confusion matrices, error rates, and performance metrics
+- 🛠 **Modular Codebase**: Clean, refactored Python scripts with clear separation of concerns
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 cnn-fashion-mnist/
@@ -47,7 +47,7 @@ cnn-fashion-mnist/
 
 ---
 
-## 🧠 Model Architecture
+## Model Architecture
 
 **LeNet-5 Convolutional Neural Network**
 
@@ -75,7 +75,7 @@ Flatten (16×5×5 = 400)
 
 ---
 
-## 🔬 Experimental Scenarios
+## Experimental Scenarios
 
 The project evaluates 4 training-testing combinations:
 
@@ -93,7 +93,7 @@ The project evaluates 4 training-testing combinations:
 
 ---
 
-## 📦 Dataset
+## Dataset
 
 ### Fashion MNIST
 - **Size**: ~40,000 training + 10,000 test images
@@ -122,7 +122,7 @@ python src/split_data.py data/all_data.npz --ratio 0.8
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -165,7 +165,7 @@ cd ..
 
 ---
 
-## 💻 Usage
+## Usage
 
 ### Basic Training
 
@@ -210,7 +210,7 @@ python src/split_data.py data/all_data.npz --train data/my_train.npz --test data
 
 ---
 
-## 📊 Results
+## Results
 
 ### Expected Performance
 
@@ -246,7 +246,7 @@ Scenario 4 (Corrected→Corrected): 0.0645
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 ### Hyperparameters
 
@@ -279,7 +279,7 @@ img.resize((width, height), Image.Resampling.LANCZOS)
 
 ---
 
-## 🛠️ Development
+## Development
 
 ### Code Quality
 
@@ -304,7 +304,7 @@ ls -lh train_data.npz test_data.npz
 
 ---
 
-## 📚 Technical Details
+## Technical Details
 
 ### Technologies Used
 
@@ -324,7 +324,7 @@ ls -lh train_data.npz test_data.npz
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Areas for improvement:
 
@@ -345,21 +345,21 @@ Contributions are welcome! Areas for improvement:
 
 ---
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 👤 Author
+## Author
 
 **Julia Shtal**
 - GitHub: [@julia-shtal](https://github.com/julia-shtal)
-- LinkedIn: [https://www.linkedin.com/in/iuliia-shtal]
+- LinkedIn: [iuliia-shtal](https://www.linkedin.com/in/iuliia-shtal)
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Fashion MNIST Dataset**: [Zalando Research](https://github.com/zalandoresearch/fashion-mnist)
 - **LeNet Architecture**: Yann LeCun et al. (1998)
@@ -368,7 +368,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📖 References
+## References
 
 1. LeCun, Y., et al. (1998). "Gradient-based learning applied to document recognition."
 2. Xiao, H., Rasul, K., & Vollgraf, R. (2017). "Fashion-MNIST: a Novel Image Dataset for Benchmarking Machine Learning Algorithms."
@@ -376,7 +376,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📧 Contact
+## Contact
 
 For questions or suggestions, please open an issue or contact via email.
 
