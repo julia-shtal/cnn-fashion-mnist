@@ -2,7 +2,7 @@
 
 This directory contains the Fashion MNIST dataset in preprocessed NPZ format for training and testing the CNN model.
 
-## 📁 Files
+## Files
 
 ```
 data/
@@ -16,7 +16,7 @@ data/
 
 ---
 
-## 📊 Dataset Information
+## Dataset Information
 
 ### Fashion MNIST Overview
 
@@ -54,7 +54,7 @@ Fashion MNIST is a dataset of Zalando's article images consisting of:
 
 ---
 
-## ⬇️ Download Instructions
+## Download Instructions
 
 ### Option 1: Download from GitHub Releases (Recommended)
 
@@ -119,7 +119,7 @@ python src/split_data.py data/all_data.npz --ratio 0.8
 
 ---
 
-## 🔍 Verify Downloaded Data
+## Verify Downloaded Data
 
 After downloading, verify the files:
 
@@ -180,7 +180,7 @@ Test Data:
 
 ---
 
-## 📖 Usage Examples
+## Usage Examples
 
 ### Load Data in Python
 
@@ -268,7 +268,7 @@ python src/train.py data/train_data.npz data/test_data.npz
 
 ---
 
-## 🛠️ Data Preprocessing
+## Data Preprocessing
 
 ### What's Already Done
 
@@ -335,7 +335,7 @@ X_per_image = np.array([
 
 ---
 
-## 📏 File Sizes
+## File Sizes
 
 | File | Approximate Size | Samples | Description |
 |------|-----------------|---------|-------------|
@@ -396,7 +396,7 @@ X = data['X']  # Only loads when accessed
 
 ---
 
-## 📚 Data Source
+## Data Source
 
 Original Fashion MNIST dataset:
 - **Paper:** "Fashion-MNIST: a Novel Image Dataset for Benchmarking Machine Learning Algorithms"
@@ -407,13 +407,13 @@ Original Fashion MNIST dataset:
 
 ---
 
-## 🔐 Data License
+## Data License
 
 The Fashion MNIST dataset is made available under the **MIT License**. See the [original repository](https://github.com/zalandoresearch/fashion-mnist) for details.
 
 ---
 
-## 💡 Tips
+## Tips
 
 - **Raw data storage** - NPZ files store raw pixel values; normalization is done during training
 - **Don't commit NPZ files to Git** - They're already in `.gitignore`
@@ -425,7 +425,7 @@ The Fashion MNIST dataset is made available under the **MIT License**. See the [
 
 ---
 
-## 🔄 Data Processing Pipeline
+## Data Processing Pipeline
 
 ```
 Raw Images (PNG)
@@ -443,7 +443,7 @@ Trained Model
 
 ---
 
-## 📧 Need Help?
+## Need Help?
 
 - Check the main [README.md](../README.md) for project documentation
 - Open an [issue](https://github.com/julia-shtal/cnn-fashion-mnist/issues) if you encounter problems

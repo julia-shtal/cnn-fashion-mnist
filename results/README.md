@@ -2,7 +2,7 @@
 
 This directory contains saved results from CNN training experiments on the Fashion MNIST dataset.
 
-## 📁 Directory Structure
+## Directory Structure
 
 Each training run creates a **timestamped subdirectory** containing all outputs from that experiment:
 
@@ -21,7 +21,7 @@ results/
 
 ---
 
-## 📊 File Types
+## File Types
 
 ### Confusion Matrices (PNG)
 
@@ -77,7 +77,7 @@ Scenario 4 (Corrected→Corrected): 0.0645
 
 ---
 
-## 🔬 Experimental Scenarios
+## Experimental Scenarios
 
 ### Scenario 1: Uncorrected → Clean
 **Training:** Original unbalanced data  
@@ -101,7 +101,7 @@ Scenario 4 (Corrected→Corrected): 0.0645
 
 ---
 
-## 📈 How to Use These Results
+## How to Use These Results
 
 ### Viewing Confusion Matrices
 
@@ -162,7 +162,7 @@ for exp_dir in results_dirs:
 
 ---
 
-## 📊 Analyzing Results
+## Analyzing Results
 
 ### Understanding Confusion Matrices
 
@@ -196,7 +196,7 @@ True  0  [450] 3   5   ...   ← Class 0: 450 correct, 3 misclassified as 1, etc
 
 ---
 
-## 🛠️ Advanced Analysis
+## Advanced Analysis
 
 ### Extract All Error Rates
 
@@ -312,7 +312,7 @@ generate_comparative_report()
 
 ---
 
-## 📝 Best Practices
+## Best Practices
 
 ### Organizing Experiments
 
@@ -361,7 +361,7 @@ Create a `results/experiment_log.md` to track experiments:
 
 ---
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### Missing Files
 
@@ -398,7 +398,7 @@ Create a `results/experiment_log.md` to track experiments:
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - **Main README**: [../README.md](../README.md) - Project overview and setup
 - **Data README**: [../data/README.md](../data/README.md) - Dataset information
@@ -406,7 +406,7 @@ Create a `results/experiment_log.md` to track experiments:
 
 ---
 
-## 💡 Tips
+## Tips
 
 - **Regular backups**: Keep important experiment results backed up
 - **Version control**: Git commit code changes before running new experiments
