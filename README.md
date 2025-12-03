@@ -20,7 +20,7 @@ This project explores how **data preprocessing and class balancing** affect CNN 
 -  **Data Balancing**: Automated oversampling to handle class imbalance
 -  **Multi-Scenario Training**: 4 experimental setups comparing corrected vs uncorrected data
 -  **Comprehensive Evaluation**: Confusion matrices, error rates, and performance metrics
-- 🛠 **Modular Codebase**: Clean, refactored Python scripts with clear separation of concerns
+-  **Modular Codebase**: Clean, refactored Python scripts with clear separation of concerns
 
 ---
 
